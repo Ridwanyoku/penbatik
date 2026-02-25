@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,5 +18,14 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::middleware('auth', 'role:admin', 'verified')->group(function () {
+    Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});
+
+Route::middleware('auth', 'role:staff', 'verified')->group(function () {
+    Route::get('staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+});
+
 
 require __DIR__.'/auth.php';
