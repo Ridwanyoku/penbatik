@@ -2,7 +2,7 @@
     <div class="p-6 max-w-xl mx-auto">
         <h1 class="text-xl font-bold mb-4">Product Detail</h1>
 
-        <img src="/images/{{ $product->image }}" class="w-40 mb-4">
+        <img src="{{asset('storage/' . $product->image)}}" class="w-40 mb-4">
 
         <p><strong>Name:</strong> {{ $product->name }}</p>
         <p><strong>Price:</strong> Rp {{ number_format($product->price) }}</p>

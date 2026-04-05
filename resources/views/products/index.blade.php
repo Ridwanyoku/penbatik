@@ -32,7 +32,7 @@
                         <td class="p-2">{{ ++$i }}</td>
 
                         <td class="p-2">
-                            <img src="/images/{{ $product->image }}" class="w-16 mx-auto">
+                            <img src="{{asset('storage/' . $product->image)}}" class="w-16 mx-auto">
                         </td>
 
                         <td class="p-2">{{ $product->name }}</td>

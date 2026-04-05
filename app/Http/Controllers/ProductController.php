@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductVariant;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
@@ -13,7 +14,7 @@ class ProductController extends Controller
     {
         $products = Product::with('variants')->latest()->paginate(5);
         
-        return view('products.index',compact('products'))
+        return view('products.index', compact('products'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -24,32 +25,31 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'category' => 'required',
             'description' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|max:2048',
 
             'variants' => 'required|array',
             'variants.*.size' => 'required',
             'variants.*.stock' => 'required|integer',
         ]);
 
-        $input = $request->only(['name','price','category','description']);
+        $validated['image'] = $request->file('image')
+            ->store('products', 'public');
 
-        if ($image = $request->file('image')) {
-            $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['image'] = $profileImage;
-        }
+        $product = Product::create([
+            'name' => $validated['name'],
+            'price' => $validated['price'],
+            'category' => $validated['category'],
+            'description' => $validated['description'],
+            'image' => $validated['image'],
+        ]);
 
-        $product = Product::create($input);
-
-        foreach ($request->variants as $variant) {
-            ProductVariant::create([
-                'product_id' => $product->id,
+        foreach ($validated['variants'] as $variant) {
+            $product->variants()->create([
                 'size' => $variant['size'],
                 'stock' => $variant['stock'],
             ]);
@@ -73,33 +73,43 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product): RedirectResponse
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'category' => 'required',
             'description' => 'required',
+
+            'image' => 'nullable|image|max:2048',
 
             'variants' => 'required|array',
             'variants.*.size' => 'required',
             'variants.*.stock' => 'required|integer',
         ]);
 
-        $input = $request->only(['name','price','category','description']);
+        $imagePath = $product->image;
 
-        if ($image = $request->file('image')) {
-            $destinationPath = 'images/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['image'] = $profileImage;
+        // Cek jika ada upload gambar baru
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama dari storage jika ada
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+            // Simpan gambar baru
+            $imagePath = $request->file('image')->store('products', 'public');
         }
 
-        $product->update($input);
+        $product->update([
+            'name' => $validated['name'],
+            'price' => $validated['price'],
+            'category' => $validated['category'],
+            'description' => $validated['description'],
+            'image' => $imagePath
+        ]);
 
         $product->variants()->delete();
 
-        foreach ($request->variants as $variant) {
-            ProductVariant::create([
-                'product_id' => $product->id,
+        foreach ($validated['variants'] as $variant) {
+            $product->variants()->create([
                 'size' => $variant['size'],
                 'stock' => $variant['stock'],
             ]);

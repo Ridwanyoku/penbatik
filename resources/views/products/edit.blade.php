@@ -14,7 +14,7 @@
 
             <textarea name="description" class="w-full mb-3 border p-2">{{ $product->description }}</textarea>
 
-            <img src="/images/{{ $product->image }}" class="w-24 mb-3">
+            <img src="{{asset('storage/' . $product->image)}}" class="w-24 mb-3">
             <input type="file" name="image" class="mb-3">
 
             <h2 class="font-bold mt-4 mb-2">Variants</h2>
