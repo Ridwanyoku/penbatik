@@ -23,6 +23,7 @@ Route::middleware('auth', 'verified')->group(function () {
 Route::middleware('auth', 'role:admin', 'verified')->group(function () {
     Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::resource('products', ProductController::class);
+    Route::resource('staffs', StaffController::class);
 });
 
 Route::middleware('auth', 'role:staff', 'verified')->group(function () {
