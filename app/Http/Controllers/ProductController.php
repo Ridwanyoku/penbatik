@@ -10,6 +10,13 @@ use Illuminate\Http\RedirectResponse;
 
 class ProductController extends Controller
 {
+    public function welcome()
+    {
+        $products = \App\Models\Product::latest()->get();
+
+        return view('welcome', compact('products'));
+    }
+
     public function index()
     {
         $products = Product::with('variants')->latest()->paginate(5);
