@@ -25,7 +25,11 @@
             @forelse($products as $product)
                 <div class="group cursor-pointer">
                     <div class="aspect-[3/4] bg-[#f3f3f3] rounded-md overflow-hidden mb-3">
-                        <img src="{{ asset('storage/' . $product->image) }}" class="w-full h-full object-cover" alt="{{ $product->name }}">
+                        <a href="{{ route('product.show', $product->id) }}" class="group cursor-pointer">
+                            <div class="aspect-[3/4] bg-[#f3f3f3] rounded-md overflow-hidden mb-3">
+                                <img src="{{ asset('storage/' . $product->image) }}" class="w-full h-full object-cover" alt="{{ $product->name }}">
+                            </div>
+                        </a>
                     </div>
                     <div class="text-left">
                         <h3 class="text-[11px] font-bold uppercase tracking-tight text-gray-900 mb-1">{{ $product->name }}</h3>

@@ -7,110 +7,93 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-gray-900">
+<body class="font-sans antialiased bg-white">
 
-<div class="flex h-screen">
+<div class="flex h-screen overflow-hidden">
 
-    <!-- SIDEBAR -->
-    <aside class="w-64 bg-gray-100 border-r flex flex-col">
-        <!-- Logo -->
-        <div class="p-6 border-b">
-            <h1 class="text-lg tracking-widest font-semibold">PENBATIK</h1>
+    <aside class="w-64 bg-white border-r flex flex-col z-10">
+        <div class="h-20 flex items-center px-8">
+            <h1 class="text-xl tracking-[0.2em] font-bold">PENBATIK</h1>
         </div>
 
-        <!-- Menu -->
-        <nav class="flex-1 px-4 py-6 space-y-4 text-sm">
-
-            <a href="/dashboard" class="flex items-center gap-3 text-gray-700 hover:text-black">
-                🏠 <span>Dashboard</span>
+        <nav class="flex-1 px-4 py-4 space-y-1">
+            <a href="/dashboard" class="flex items-center gap-4 px-4 py-3 text-sm font-medium text-gray-500 hover:text-black hover:bg-gray-50 rounded-lg transition-all {{ request()->is('dashboard') ? 'bg-gray-100 text-black' : '' }}">
+                <span class="text-lg">🏠</span> Dashboard
             </a>
 
-            <a href="{{ route('products.index') }}" class="flex items-center gap-3 text-gray-700 hover:text-black">
-                📦 <span>Products</span>
+            <a href="{{ route('products.index') }}" class="flex items-center gap-4 px-4 py-3 text-sm font-medium text-gray-500 hover:text-black hover:bg-gray-50 rounded-lg transition-all {{ request()->is('products*') ? 'bg-gray-100 text-black' : '' }}">
+                <span class="text-lg">📦</span> Products
             </a>
 
-            <a href="#" class="flex items-center gap-3 text-gray-700 hover:text-black">
-                💳 <span>Transactions</span>
+            <a href="{{ route('admin.orders.index') }}" class="flex items-center gap-4 px-4 py-3 text-sm font-medium text-gray-500 hover:text-black hover:bg-gray-100 rounded-lg transition-all {{ request()->is('admin/orders*') ? 'bg-gray-100 text-black' : '' }}">
+                <span class="text-lg">💰</span> Transactions
             </a>
 
-            <a href="#" class="flex items-center gap-3 text-gray-700 hover:text-black">
-                📊 <span>Reports</span>
+            <a href="#" class="flex items-center gap-4 px-4 py-3 text-sm font-medium text-gray-500 hover:text-black hover:bg-gray-50 rounded-lg transition-all">
+                <span class="text-lg">📄</span> Reports
             </a>
 
-            <a href="{{ route('staffs.index') }}" class="flex items-center gap-3 text-gray-700 hover:text-black">
-                👤 <span>Staffs</span>
+            <a href="{{ route('staffs.index') }}" class="flex items-center gap-4 px-4 py-3 text-sm font-medium text-gray-500 hover:text-black hover:bg-gray-50 rounded-lg transition-all {{ request()->is('staffs*') ? 'bg-gray-100 text-black' : '' }}">
+                <span class="text-lg">👥</span> Staffs
             </a>
-
         </nav>
     </aside>
 
-    <!-- MAIN CONTENT -->
-    <div class="flex-1 flex flex-col bg-gray-100">
+    <div class="flex-1 flex flex-col min-w-0 bg-white">
 
-        <!-- TOPBAR -->
-        <header class="h-16 bg-gray-100 border-b flex items-center justify-end px-6">
-
-            <div class="hidden sm:flex sm:items-center">
+        <header class="h-20 bg-white border-b flex items-center justify-end px-12">
+            
+            <div class="flex items-center gap-4">
                 <x-dropdown align="right" width="48">
-                    
-                    <!-- Trigger -->
                     <x-slot name="trigger">
-                        <button class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:text-black focus:outline-none">
-
-                            <!-- Avatar -->
-                            <div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
-                                👤
+                        <button class="flex items-center gap-3 py-2 focus:outline-none group">
+                            <div class="text-right hidden sm:block">
+                                <p class="text-sm font-semibold text-gray-900 leading-none">{{ Auth::user()->name }}</p>
+                                <p class="text-[10px] text-gray-400 uppercase tracking-tighter mt-1">Administrator</p>
+                            </div>
+                            
+                            <div class="w-10 h-10 rounded-full bg-gray-200 border border-gray-100 flex items-center justify-center text-gray-500 overflow-hidden shadow-sm group-hover:bg-gray-300 transition">
+                                <span class="text-xl">👤</span>
                             </div>
 
-                            <!-- Nama -->
-                            <span>{{ Auth::user()->name }}</span>
-
-                            <!-- Icon dropdown -->
-                            <svg class="fill-current h-4 w-4 ml-1" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                    clip-rule="evenodd" />
+                            <svg class="w-4 h-4 text-gray-400 group-hover:text-black transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
-
                         </button>
                     </x-slot>
 
-                    <!-- Dropdown Content -->
                     <x-slot name="content">
-
-                        <div class="px-4 py-2 border-b">
-                            <div class="text-sm font-medium text-gray-800">{{ Auth::user()->name }}</div>
-                            <div class="text-xs text-gray-500">{{ Auth::user()->email }}</div>
+                        <div class="px-4 py-3 border-b bg-gray-50/50">
+                            <p class="text-xs text-gray-400 uppercase font-bold tracking-wider mb-1">Signed in as</p>
+                            <p class="text-sm font-medium text-gray-900 truncate">{{ Auth::user()->email }}</p>
                         </div>
 
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                        <x-dropdown-link :href="route('profile.edit')" class="text-sm">
+                            {{ __('My Profile') }}
                         </x-dropdown-link>
 
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
                             <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                    onclick="event.preventDefault(); this.closest('form').submit();"
+                                    class="text-sm text-red-600">
+                                {{ __('Sign Out') }}
                             </x-dropdown-link>
                         </form>
-
                     </x-slot>
                 </x-dropdown>
             </div>
-
         </header>
 
-        <!-- CONTENT -->
-        <main class="flex-1 p-6">
-            {{ $slot }}
+        <main class="flex-1 overflow-y-auto bg-[#FAFAFA] p-12">
+            <div class="max-w-7xl mx-auto">
+                {{ $slot }}
+            </div>
         </main>
 
     </div>
