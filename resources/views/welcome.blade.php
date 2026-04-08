@@ -3,16 +3,16 @@
 
     <section class="flex flex-col md:flex-row w-full">
         <div class="relative w-full md:w-1/2 h-[500px] overflow-hidden group">
-            <img src="https://cdn0-production-images-kly.akamaized.net/QsOH6aLpw8TYEG5cjZDc_cuO5Iw=/500x500/smart/filters:quality(75):strip_icc()/kly-media-production/medias/5206943/original/040361300_1746177072-d.jpg" 
-                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Woman">
+            <img src="{{asset('/images/woman.jpg')}}" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Woman">
             <div class="absolute inset-0 bg-black/20 flex flex-col items-center justify-center text-white">
                 <h2 class="text-4xl tracking-[0.2em] font-serif font-bold uppercase mb-2">Woman</h2>
                 <p class="logo-font text-3xl italic">Collection</p>
             </div>
         </div>
         <div class="relative w-full md:w-1/2 h-[500px] overflow-hidden group">
-            <img src="https://img.lazcdn.com/g/p/de89323433a9cd361f60e01de087ab62.jpg_720x720q80.jpg" 
-                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Man">
+            <img src="{{asset('/images/man.jpg')}}" 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Man">
             <div class="absolute inset-0 bg-black/20 flex flex-col items-center justify-center text-white">
                 <h2 class="text-4xl tracking-[0.2em] font-serif font-bold uppercase mb-2">Man</h2>
                 <p class="logo-font text-3xl italic">Collection</p>

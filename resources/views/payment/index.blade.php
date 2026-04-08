@@ -10,7 +10,7 @@
 
                 <div class="flex justify-between items-center">
                     <span class="text-gray-400 italic">Bank Transfer</span>
-                    <img src="images/bca.png" class="h-8" alt="BCA">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQGnSX7D6wci0SA0G0c-K64mIPqbE9IWbs0A&s" class="h-8" alt="BCA">
                 </div>
 
                 <div class="flex justify-between items-start">

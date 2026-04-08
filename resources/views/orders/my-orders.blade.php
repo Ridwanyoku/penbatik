@@ -36,8 +36,8 @@
                             </div>
                         </div>
 
-                        <div class="col-span-2 text-center text-[11px] font-mono text-gray-400">
-                            #{{ $order->id }}
+                        <div class="col-span-2 text-center text-[14px] font-mono text-gray-800">
+                            {{ $order->id }}
                         </div>
 
                         <div class="col-span-3 flex flex-col items-center">
@@ -64,19 +64,44 @@
                                 <form action="{{ route('orders.complete', $order->id) }}" method="POST">
                                     @csrf
                                     @method('PATCH')
-                                    <button type="submit" class="mt-4 w-full bg-green-500 text-white text-[10px] font-bold py-2 rounded-full uppercase tracking-widest hover:bg-green-600 transition">
+                                    <button type="submit" class="mt-4 w-full bg-green-500 text-white text-[10px] font-bold px-2 py-2 rounded-full uppercase tracking-widest hover:bg-green-600 transition">
                                         Pesanan Diterima
                                     </button>
                                 </form>
                             @endif
                         </div>
 
-                        <div class="col-span-2 text-right">
-                            <a href="/payment/{{ $order->id }}" 
-                            class="inline-block bg-black text-white px-8 py-3 rounded text-[10px] font-bold uppercase tracking-widest hover:bg-gray-800 transition shadow-sm">
-                                Detail
+        
+                    <div class="col-span-2 text-right flex flex-col gap-2 items-end">
+                        <a href="/payment/{{ $order->id }}" 
+                            class="inline-block bg-black text-white px-8 py-3 rounded text-[10px] font-bold uppercase tracking-widest hover:bg-gray-800 transition shadow-sm w-full text-center">
+                            Detail
+                        </a>
+
+                        {{-- Tombol CANCEL: Muncul hanya jika status 'Paying' dan BELUM upload bukti --}}
+                        @if($order->status === 'pending' && !$order->payment_receipt)
+                            <form action="{{ route('orders.cancel', $order->id) }}" method="POST" class="w-full">
+                                @csrf @method('PATCH')
+                                <button type="submit" onclick="return confirm('Batalkan pesanan ini?')" 
+                                    class="text-[9px] font-bold text-red-500 uppercase tracking-widest hover:underline w-full mt-2">
+                                    Cancel Order
+                                </button>
+                            </form>
+                        @endif
+
+                        {{-- @if($order->status === 'Completed')
+                            <a href="{{ route('orders.refund.create', $order->id) }}" 
+                                class="text-[9px] font-bold text-orange-500 uppercase tracking-widest hover:underline w-full mt-2 text-center">
+                                Ajukan Refund
                             </a>
-                        </div>
+                        @endif
+                        
+                        @if($order->status === 'Refund_Requested')
+                            <span class="text-[9px] font-bold text-blue-400 uppercase tracking-widest italic">
+                                Refund sedang ditinjau
+                            </span>
+                        @endif --}}
+                    </div>
 
                     </div>
                     <hr class="border-gray-50">

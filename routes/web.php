@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Route;
 
     
 Route::get('/', [ProductController::class, 'welcome'])->name('welcome');
+Route::view('/about', 'about')->name('about');
+Route::view('/customer-care', 'customer-care')->name('customer-care');
+
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('product.show');
 
 // User pages
@@ -36,11 +39,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('user.orders.index');
     Route::get('/my-orders/{order}', [OrderController::class, 'show'])->name('user.orders.show');
     Route::patch('/my-orders/{order}/complete', [OrderController::class, 'completeOrder'])->name('orders.complete');
+    Route::patch('/my-orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
 });
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 
@@ -62,9 +62,9 @@ Route::middleware('auth', 'role:admin', 'verified')->group(function () {
 
 
 // Staff pages
-Route::middleware('auth', 'role:staff', 'verified')->group(function () {
-    Route::get('staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
-});
+// Route::middleware('auth', 'role:staff', 'verified')->group(function () {
+//     Route::get('staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+// });
 
 
 require __DIR__.'/auth.php';

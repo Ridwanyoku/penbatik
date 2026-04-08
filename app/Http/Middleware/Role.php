@@ -17,6 +17,8 @@ class Role
     {
         if ($request->user() == $role) {
             return redirect('dashboard');
+        } else if ($request->user()->role === 'user') {
+            return redirect('/')->with('error', 'Kamu tidak memiliki akses ke halaman tersebut.');
         }
         return $next($request);
     }

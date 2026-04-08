@@ -56,4 +56,14 @@ class OrderController extends Controller
         return back()->with('success', 'Terima kasih! Pesanan telah selesai.');
     }
 
+    public function cancel(Order $order)
+    {
+        // Proteksi: Jika sudah ada payment_receipt, tidak bisa cancel
+        if ($order->payment_receipt) {
+            return back()->with('error', 'Pesanan tidak bisa dibatalkan karena bukti bayar sudah dikirim.');
+        }
+
+        $order->update(['status' => 'Cancelled']);
+        return back()->with('success', 'Pesanan berhasil dibatalkan.');
+    }
 }

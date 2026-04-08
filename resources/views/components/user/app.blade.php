@@ -19,8 +19,8 @@
     <header class="w-full bg-white border-b border-gray-100 py-6 px-10 flex items-center justify-between sticky top-0 z-50">
         <div class="flex-1 flex items-center gap-8 text-[11px] tracking-[0.2em] font-medium text-gray-500">
             <a href="/" class="hover:text-black transition-colors uppercase font-bold">All</a>
-            <a href="#" class="hover:text-black transition-colors uppercase font-bold">About Us</a>
-            <a href="#" class="hover:text-black transition-colors uppercase font-bold whitespace-nowrap">Customer Care</a>
+            <a href="/about" class="hover:text-black transition-colors uppercase font-bold">About Us</a>
+            <a href="/customer-care" class="hover:text-black transition-colors uppercase font-bold whitespace-nowrap">Customer Care</a>
         </div>
 
         <div class="flex-none text-center">
