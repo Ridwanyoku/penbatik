@@ -1,6 +1,5 @@
 <x-user.app>
 
-    @include('components.user.mini-nav')
     <div class="max-w-7xl mx-auto px-10 py-12">
         <h1 class="text-2xl font-bold uppercase tracking-widest mb-10">Your Cart</h1>
 

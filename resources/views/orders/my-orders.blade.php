@@ -55,7 +55,7 @@
                             </span>
 
                             @if($order->status === 'Shipping' && $order->shipping_receipt)
-                                <span class="text-[9px] text-gray-400 mt-2 font-mono tracking-tighter">
+                                <span class="text-[16px] text-gray-800 mt-2 font-mono tracking-tighter">
                                     RESI: {{ $order->shipping_receipt }}
                                 </span>
                             @endif
