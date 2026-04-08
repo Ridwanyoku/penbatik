@@ -30,7 +30,7 @@
                 <span class="text-lg">📦</span> Products
             </a>
 
-            <a href="{{ route('admin.orders.index') }}" class="flex items-center gap-4 px-4 py-3 text-sm font-medium text-gray-500 hover:text-black hover:bg-gray-100 rounded-lg transition-all {{ request()->is('admin/orders*') ? 'bg-gray-100 text-black' : '' }}">
+            <a href="/transactions" class="flex items-center gap-4 px-4 py-3 text-sm font-medium text-gray-500 hover:text-black hover:bg-gray-100 rounded-lg transition-all">
                 <span class="text-lg">💰</span> Transactions
             </a>
 

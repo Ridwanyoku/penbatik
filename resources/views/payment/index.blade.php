@@ -10,7 +10,7 @@
 
                 <div class="flex justify-between items-center">
                     <span class="text-gray-400 italic">Bank Transfer</span>
-                    <img src="{{ asset('images/bca.png') }}" class="h-8" alt="BCA">
+                    <img src="images/bca.png" class="h-8" alt="BCA">
                 </div>
 
                 <div class="flex justify-between items-start">
@@ -50,7 +50,7 @@
             </div>
 
             <div class="mt-12">
-                <a href="{{ route('dashboard') }}" class="block w-full bg-black text-white text-center py-4 rounded-lg font-bold uppercase tracking-[0.2em] hover:bg-gray-800 transition">
+                <a href="/my-orders" class="block w-full bg-black text-white text-center py-4 rounded-lg font-bold uppercase tracking-[0.2em] hover:bg-gray-800 transition">
                     Back to Account
                 </a>
             </div>

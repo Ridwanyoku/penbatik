@@ -20,6 +20,7 @@ return new class extends Migration
             $table->decimal('delivery', 15, 2)->default(20000);
             $table->decimal('total', 15, 2);
             $table->string('payment_receipt')->nullable();
+            $table->string('shipping_receipt')->nullable();
             $table->string('status')->default('pending');
             $table->timestamps();
         });

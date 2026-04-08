@@ -1,9 +1,12 @@
-<x-app-layout>
+<x-user.app>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}
         </h2>
     </x-slot>
+
+
+    @include('components.user.mini-nav')
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
@@ -24,6 +27,15 @@
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>
+            
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <x-dropdown-link :href="route('logout')"
+                        onclick="event.preventDefault(); this.closest('form').submit();"
+                        class="text-sm text-red-600">
+                    {{ __('Sign Out') }}
+                </x-dropdown-link>
+            </form>
         </div>
     </div>
-</x-app-layout>
+</x-user.app>
