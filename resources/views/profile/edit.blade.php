@@ -48,6 +48,52 @@
                         @include('profile.partials.update-password-form')
                     </div>
                 </div>
+                
+                {{-- Address edit --}}
+                <div class="p-10 bg-white border border-gray-100 rounded-3xl shadow-sm mt-8">
+                    <h2 class="text-lg font-bold uppercase tracking-[0.2em] mb-8">Shipping Addresses</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                        @foreach(Auth::user()->addresses as $addr)
+                            <div class="p-6 border {{ $addr->is_default ? 'border-black' : 'border-gray-100' }} rounded-2xl relative bg-white">
+                                <div class="flex justify-between items-start mb-4">
+                                    <span class="text-[10px] font-black uppercase tracking-widest text-red-500">{{ $addr->label }}</span>
+                                    @if(!$addr->is_default)
+                                        <form action="{{ route('addresses.set-default', $addr) }}" method="POST">
+                                            @csrf @method('PATCH')
+                                            <button class="text-[9px] font-bold uppercase tracking-widest text-gray-400 hover:text-black">Set Default</button>
+                                        </form>
+                                    @endif
+                                </div>
+                                <h4 class="font-bold text-sm">{{ $addr->name }} <span class="text-gray-400 font-normal">({{ $addr->receiver_name }})</span></h4>
+                                <p class="text-[11px] text-gray-500 mt-2 italic">{{ $addr->full_address }}, {{ $addr->city }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <form action="{{ route('addresses.store') }}" method="POST" class="border-t pt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        @csrf
+                        <div class="space-y-4 col-span-2 md:col-span-1">
+                            <input type="text" name="name" placeholder="ADDRESS NAME (E.G. MY APARTMENT)" class="w-full border-gray-100 rounded-xl text-[11px] uppercase tracking-widest focus:ring-black">
+                            <input type="text" name="label" placeholder="LABEL (E.G. HOME, OFFICE)" class="w-full border-gray-100 rounded-xl text-[11px] uppercase tracking-widest focus:ring-black">
+                            <input type="text" name="receiver_name" placeholder="RECEIVER NAME" class="w-full border-gray-100 rounded-xl text-[11px] uppercase tracking-widest focus:ring-black">
+                        </div>
+                        <div class="space-y-4 col-span-2 md:col-span-1">
+                            <input type="text" name="phone_number" placeholder="PHONE NUMBER" class="w-full border-gray-100 rounded-xl text-[11px] focus:ring-black">
+                            <input type="text" name="city" placeholder="CITY" class="w-full border-gray-100 rounded-xl text-[11px] uppercase tracking-widest focus:ring-black">
+                            <input type="text" name="postal_code" placeholder="POSTAL CODE" class="w-full border-gray-100 rounded-xl text-[11px] focus:ring-black">
+                        </div>
+                        <textarea name="full_address" placeholder="FULL ADDRESS" class="col-span-2 w-full border-gray-100 rounded-xl text-[11px] focus:ring-black h-24"></textarea>
+                        
+                        <div class="col-span-2 flex items-center justify-between">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="is_default" value="1" class="rounded border-gray-200 text-black focus:ring-black">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Set as primary address</span>
+                            </label>
+                            <button class="bg-black text-white px-10 py-4 rounded-xl text-[11px] font-bold uppercase tracking-widest hover:bg-gray-800 transition">Save Address</button>
+                        </div>
+                    </form>
+                </div>
 
                 {{-- TOMBOL SIGN OUT (Lokasi Di Atas Delete Account) --}}
                 <div class="p-8 md:p-12 bg-gray-50 rounded-2xl border border-dashed border-gray-200">

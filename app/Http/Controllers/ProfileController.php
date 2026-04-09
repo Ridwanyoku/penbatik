@@ -20,7 +20,9 @@ class ProfileController extends Controller
         return view('profile.edit', [
             'user' => $request->user(),
 
-            'order' => $request->user()->orders()->with('items.product')->latest()->get()
+            'order' => $request->user()->orders()->with('items.product')->latest()->get(),
+
+            'addresses' => $request->user()->addresses()->orderBy('is_default', 'desc')->get()
         ]);
 
 
